@@ -9,7 +9,7 @@ var config = {
 };
 
 app.get('/', function (req, res) {
-  res.send('Hello World!');
+  res.send('公众号正在开发测试中!');
 });
 app.use(express.query());
 app.use('/wechat', wechat(config, function (req, res, next) {
