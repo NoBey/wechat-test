@@ -1,48 +1,47 @@
-var http = require('http'),
-    wechat = require('node-wechat')("weixin");
+var express = require('express');
+var app = express();
 
-http.createServer(function (req, res) {
-  //检验 token
-  wechat.checkSignature(req, res);
-  //预处理
-  wechat.handler(req, res);
+var wechat = require('wechat');
+var config = {
+  token: 'weixin',
+  appid: 'wxc0fe8681f03dc6d6',
+  encodingAESKey: 'GZpin2nKriPZ0je16oZAt17yC46AdMsLYoOzx3W7E92'
+};
 
-  //监听文本信息
-  wechat.text(function (data) {
-    //console.log(data.ToUserName);
-    //console.log(data.FromUserName);
-    //console.log(data.CreateTime);
-    //console.log(data.MsgType);
-    //...
-    var msg = {
-      FromUserName : data.ToUserName,
-      ToUserName : data.FromUserName,
-      //MsgType : "text",
-      Content : "这是文本回复",
-      //FuncFlag : 0
-    }
-    //回复信息
-    wechat.send(msg);
-  });
-
-  //监听图片信息
-  //wechat.image(function (data) { ... });
-
-  //监听地址信息
-  //wechat.location(function (data) { ... });
-
-  //监听链接信息
-  //wechat.link(function (data) { ... });
-
-  //监听事件信息
-  //wechat.event(function (data) { ... });
-
-  //监听语音信息
-  //wechat.voice(function (data) { ... });
-
-  //监听视频信息
-  //wechat.video(function (data) { ... });
-
-  //监听所有信息
-  //wechat.all(function (data) { ... });
-}).listen(12345);
+app.use(express.query());
+app.use('/wechat', wechat(config, function (req, res, next) {
+  // 微信输入信息都在req.weixin上
+  var message = req.weixin;
+  if (message.FromUserName === 'diaosi') {
+    // 回复屌丝(普通回复)
+    res.reply('hehe');
+  } else if (message.FromUserName === 'text') {
+    //你也可以这样回复text类型的信息
+    res.reply({
+      content: 'text object',
+      type: 'text'
+    });
+  } else if (message.FromUserName === 'hehe') {
+    // 回复一段音乐
+    res.reply({
+      type: "music",
+      content: {
+        title: "来段音乐吧",
+        description: "一无所有",
+        musicUrl: "http://mp3.com/xx.mp3",
+        hqMusicUrl: "http://mp3.com/xx.mp3",
+        thumbMediaId: "thisThumbMediaId"
+      }
+    });
+  } else {
+    // 回复高富帅(图文回复)
+    res.reply([
+      {
+        title: '你来我家接我吧',
+        description: '这是女神与高富帅之间的对话',
+        picurl: 'http://nodeapi.cloudfoundry.com/qrcode.jpg',
+        url: 'http://nodeapi.cloudfoundry.com/'
+      }
+    ]);
+  }
+}));
