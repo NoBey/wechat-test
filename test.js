@@ -47,4 +47,4 @@ http.createServer(function (req, res) {
 
   //监听所有信息
   //wechat.all(function (data) { ... });
-}).listen(80);
+}).listen(12345);
