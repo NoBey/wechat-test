@@ -18,6 +18,7 @@
   "homepage": "https://github.com/NoBey/wechat-test#readme",
   "dependencies": {
     "express": "^4.14.0",
-    "wechat": "^2.0.3"
+    "wechat": "^2.0.3",
+    "wechat-oauth": "^1.1.1"
   }
 }

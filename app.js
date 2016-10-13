@@ -8,9 +8,19 @@ var config = {
   encodingAESKey: 'GZpin2nKriPZ0je16oZAt17yC46AdMsLYoOzx3W7E92'
 };
 
+var OAuth = require('wechat-oauth');
+var client = new OAuth('wxc0fe8681f03dc6d6', 'your secret');
+
+app.get('/MP_verify_HjHnodmSCtXbcm9C.txt', function (req, res) {
+  res.send('HjHnodmSCtXbcm9C');
+});
+
 app.get('/', function (req, res) {
   res.send('公众号正在开发测试中!');
+ //  var url = client.getAuthorizeURL('http://' + domain + '/weixin/callback','','snsapi_userinfo');
+  //res.redirect(url)
 });
+
 app.use(express.query());
 app.use('/wechat', wechat(config, function (req, res, next) {
   // 微信输入信息都在req.weixin上
