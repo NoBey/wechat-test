@@ -1,6 +1,5 @@
 var express = require('express');
 var app = express();
-
 var wechat = require('wechat');
 var config = {
   token: 'weixin',
@@ -18,8 +17,8 @@ app.get('/', function (req, res) {
   //res.redirect(url)
 });
 app.use(express.query());
-app.use(express.static("/mp"));
 
+app.use("/mp", express.static(__dirname + '/mp'));
 app.use('/wechat', wechat(config, function (req, res, next) {
   // 微信输入信息都在req.weixin上
     var message = req.weixin;
