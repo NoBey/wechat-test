@@ -17,9 +17,9 @@ app.get('/', function (req, res) {
  //  var url = client.getAuthorizeURL('http://' + domain + '/weixin/callback','','snsapi_userinfo');
   //res.redirect(url)
 });
-
-app.use("/mp", express.static(__dirname + "/mp"));
 app.use(express.query());
+app.use(express.static("/mp"));
+
 app.use('/wechat', wechat(config, function (req, res, next) {
   // 微信输入信息都在req.weixin上
     var message = req.weixin;
