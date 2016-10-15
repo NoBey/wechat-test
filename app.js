@@ -1,46 +1,58 @@
 var express = require('express');
+var webot = require('weixin-robot');
+
 var app = express();
-var wechat = require('wechat');
-var config = {
-  token: 'weixin',
-  appid: 'wxc0fe8681f03dc6d6',
-  encodingAESKey: 'GZpin2nKriPZ0je16oZAt17yC46AdMsLYoOzx3W7E92'
-};
 
-var OAuth = require('wechat-oauth');
-var client = new OAuth('wxc0fe8681f03dc6d6', 'your secret');
+// 指定回复消息
+webot.set('hi', '你好');
 
-var List = wechat.List;
-List.add('view', [
-  ['回复{a}查看我的性别', function (info, req, res) {
-    res.reply('我是个妹纸哟');
-  }],
-  ['回复{b}查看我的年龄', function (info, req, res) {
-    res.reply('我今年18岁');
-  }],
-  ['回复{c}查看我的性取向', '这样的事情怎么好意思告诉你啦- -']
-]);
-
-
-app.get('/', function (req, res) {
-  res.send('公众号正在开发测试中!');
- //  var url = client.getAuthorizeURL('http://' + domain + '/weixin/callback','','snsapi_userinfo');
-  //res.redirect(url)
+webot.set('subscribe', {
+  pattern: function(info) {
+    return info.is('event') && info.param.event === 'subscribe';
+  },
+  handler: function(info) {
+    return '欢迎订阅微信机器人';
+  }
 });
-app.use(express.query());
 
-app.use("/mp", express.static(__dirname + '/mp'));
-app.use('/wechat', wechat(config, function (req, res, next) {
-  // 微信输入信息都在req.weixin上
-    var message = req.weixin;
-    res.reply('公众号正在开发测试中');
+webot.set('test', {
+  pattern: /^test/i,
+  handler: function(info, next) {
+    next(null, 'roger that!')
+  }
+})
 
-}));
+// 你可以获取已定义的 rule
+//
+// webot.get('subscribe') ->
+//
+// {
+//   name: 'subscribe',
+//   pattern: function(info) {
+//     return info.is('event') && info.param.event === 'subscribe';
+//   },
+//   handler: function(info) {
+//     return '欢迎订阅微信机器人';
+//   }
+// }
+//
+
+// 接管消息请求
+webot.watch(app, { token: 'weixin', path: '/wechat' });
+
+// 如果需要多个实例（即为多个微信账号提供不同回复）：
 
 
-var server = app.listen(12345, function () {
+// 启动 Web 服务
+// 微信后台只允许 80 端口
+app.listen(12345, function () {
   var host = server.address().address;
   var port = server.address().port;
 
   console.log('成功启动', host, port);
 });
+
+// 如果你不想让 node 应用直接监听 80 端口
+// 可以尝试用 nginx 或 apache 自己做一层 proxy
+// app.listen(process.env.PORT);
+// app.enable('trust proxy');
