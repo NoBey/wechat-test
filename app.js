@@ -1,6 +1,6 @@
 var express = require('express');
 var webot = require('weixin-robot');
-
+var pa = require('./pa.js')
 var app = express();
 
 // 指定回复消息
@@ -11,7 +11,7 @@ webot.set('subscribe', {
     return info.is('event') && info.param.event === 'subscribe';
   },
   handler: function(info) {
-    return '欢迎订阅微信机器人';
+    return '欢迎订阅鉴心针';
   }
 });
 
@@ -21,7 +21,12 @@ webot.set('test', {
     next(null, 'roger that!')
   }
 })
-
+webot.set('kb', {
+  pattern: /^课表/i,
+  handler: function(info, next) {
+    return pa()
+  }
+})
 // 你可以获取已定义的 rule
 //
 // webot.get('subscribe') ->
