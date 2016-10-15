@@ -45,7 +45,7 @@ webot.watch(app, { token: 'weixin', path: '/wechat' });
 
 // 启动 Web 服务
 // 微信后台只允许 80 端口
-app.listen(12345, function () {
+var server = app.listen(12345, function () {
   var host = server.address().address;
   var port = server.address().port;
 
