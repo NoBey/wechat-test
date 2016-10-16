@@ -27,6 +27,7 @@ webot.set('kb', {
     pa(function(res){
       next(null, res);
     })
+    next();
   }
 })
 // 你可以获取已定义的 rule
