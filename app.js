@@ -39,7 +39,8 @@ webot.set('信息', {
               .set('Cookie', cookies)
               .charset('gbk')
               .end((err, res) => {
-                next(null,res.text)
+
+                next(null,res.text.replace(/[^\u4e00-\u9fa5]/gi,""))
                      });
             });
   }
