@@ -22,9 +22,11 @@ webot.set('test', {
   }
 })
 webot.set('kb', {
-  pattern: /^课表/i,
+  pattern: /^信息/i,
   handler: function(info, next) {
-    return pa()
+    pa(function(res){
+      next(null, res);
+    })
   }
 })
 // 你可以获取已定义的 rule
