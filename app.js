@@ -24,10 +24,7 @@ webot.set('test', {
 webot.set('kb', {
   pattern: /^信息/i,
   handler: function(info, next) {
-    pa(function(res){
-      next(null, res);
-    })
-    next();
+    pa(next)
   }
 })
 // 你可以获取已定义的 rule

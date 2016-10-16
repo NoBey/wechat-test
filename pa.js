@@ -24,7 +24,7 @@ request.agent().post('http://202.113.80.18:7777/pls/wwwbks/bks_login2.login?')
           .set('Cookie', cookies)
           .charset('gbk')
           .end((err, res) => {
-            callback(res.text)
+            callback(null,res.text)
              console.log(res.text)
                   data = res.text
                  });
