@@ -1,6 +1,5 @@
 var express = require('express');
 var webot = require('weixin-robot');
-var pa = require('./pa.js')
 var app = express();
 
 const charset = require('superagent-charset');
@@ -25,23 +24,24 @@ webot.set('test', {
     next(null, 'roger that!')
   }
 })
+
 webot.set('信息', {
   pattern: /^信息/i,
   handler: function(info, next) {
-     pa(next)
-  }
-})
-webot.set('p', {
-  pattern: /^1/i,
-  handler: function(info, next) {
-
-      request.get('http://202.113.80.18:7777/pls/wwwbks/bks_login2.login')
-      .charset('gbk')
-      .end((err, res) => {
-        console.log(res.text)
-        next(null, res.text)
-      })
-
+    var cookies = ''
+    request.agent().post('http://202.113.80.18:7777/pls/wwwbks/bks_login2.login?')
+          .type('form')
+          .send({ stuid: '20142510', pwd: '123456' })
+          .charset('gbk')
+          .end((err, res) => {
+            cookies = res.request.cookies
+            request.get('http://202.113.80.18:7777/pls/wwwbks/bks_xj.xjcx')
+              .set('Cookie', cookies)
+              .charset('gbk')
+              .end((err, res) => {
+                next(null,res.text)
+                     });
+            });
   }
 })
 
