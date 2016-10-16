@@ -3,6 +3,10 @@ var webot = require('weixin-robot');
 var pa = require('./pa.js')
 var app = express();
 
+const charset = require('superagent-charset');
+const request = require('superagent');
+charset(request);
+
 // 指定回复消息
 webot.set('hi', '你好');
 
@@ -21,12 +25,27 @@ webot.set('test', {
     next(null, 'roger that!')
   }
 })
-webot.set('kb', {
+webot.set('信息', {
   pattern: /^信息/i,
   handler: function(info, next) {
-    pa(next)
+     pa(next)
   }
 })
+webot.set('p', {
+  pattern: /^1/i,
+  handler: function(info, next) {
+
+      request.get('http://202.113.80.18:7777/pls/wwwbks/bks_login2.login')
+      .charset('gbk')
+      .end((err, res) => {
+        console.log(res.text)
+        next(null, res.text)
+      })
+
+  }
+})
+
+
 // 你可以获取已定义的 rule
 //
 // webot.get('subscribe') ->
