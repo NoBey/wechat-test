@@ -39,7 +39,7 @@ webot.set('信息', {
               .set('Cookie', cookies)
               .charset('gbk')
               .end((err, res) => {
-                next(null,res.text.slice(0,200))
+                next(null,res.text.slice(0,100))
                      });
             });
   }
