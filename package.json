@@ -18,6 +18,7 @@
   "homepage": "https://github.com/NoBey/wechat-test#readme",
   "dependencies": {
     "express": "^4.14.0",
+    "mongoose": "^4.6.4",
     "superagent": "^2.3.0",
     "superagent-charset": "^1.1.1",
     "wechat": "^2.0.3",

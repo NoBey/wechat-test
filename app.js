@@ -1,6 +1,8 @@
 var express = require('express');
 var webot = require('weixin-robot');
 var app = express();
+var findInformation = require('./StudentInformation.js')
+var arrToStr = require('./arrToStr.js')
 
 const charset = require('superagent-charset');
 const request = require('superagent');
@@ -22,6 +24,16 @@ webot.set('test', {
   pattern: /^test/i,
   handler: function(info, next) {
     next(null, 'roger that!')
+  }
+})
+
+webot.set('学号', {
+  pattern: /^学号/i,
+  handler: function(info, next) {
+    var xh = info.text.match(/\d+/g)
+    findInformation({学号:xh}, function(err, list){
+       next(null, arrToStr(list))
+    })
   }
 })
 
