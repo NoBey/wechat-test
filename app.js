@@ -32,6 +32,7 @@ webot.set('学号', {
   handler: function(info, next) {
     var xh = info.text.match(/\d+/g)
     findInformation({学号:xh}, function(err, list){
+       console.log(arrToStr(list))
        next(null, arrToStr(list))
     })
   }
