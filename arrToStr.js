@@ -1,8 +1,18 @@
 module.exports = function(arr){
+  var data = {  学号: 'String',
+     姓名: 'String',
+     身份证: 'String',
+     性别: 'String',
+     民族: 'String',
+     籍贯: 'String',
+     身份: 'String',
+     班级: 'String',
+     高中: 'String'}
   var tmp = ''
   if(arr.length===1){
     tmp = ''
-    for(key in arr[0]){
+
+    for(key in data){
       tmp += key+'--'+arr[0][key]+'\n'
     }
     return tmp
