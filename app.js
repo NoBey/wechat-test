@@ -33,17 +33,87 @@ webot.set('学号', {
     var xh = info.text.match(/\d+/g)
     findInformation({学号:xh}, function(err, list){
        next(null, arrToStr(list))
-    })
+    }, 100, 0)
   }
 })
+
+webot.set('缩写', {
+  pattern: /^缩写/i,
+  handler: function(info, next) {
+    var limit = 99999
+    var skip = 0
+    var name = info.text.replace(/缩写/, "").replace(/-\d+/, "").replace(' ', "")
+    var reg = eval('/'+name.toUpperCase()+'/')
+    var num = info.text.split('-')[1]
+    if(num !=undefined && num !=''){
+      limit = 50
+      skip = (num-1)*50
+    }
+
+    findInformation({'acronym':reg}, function(err, list){
+       next(null, arrToStr(list))
+    }, limit, skip)
+
+  }
+})
+
+webot.set('班级', {
+  pattern: /^班级/i,
+  handler: function(info, next) {
+    var limit = 99999
+    var skip = 0
+    var name = info.text.replace(/班级/, "").replace(/-\d+/, "").replace(' ', "")
+    var reg = eval('/'+name+'/')
+    var num = info.text.split('-')[1]
+    if(num !=undefined && num !=''){
+      limit = 50
+      skip = (num-1)*50
+    }
+
+    findInformation({班级:reg}, function(err, list){
+       next(null, arrToStr(list))
+    }, limit, skip)
+
+  }
+})
+
+webot.set('姓名拼音', {
+  pattern: /^拼音/i,
+  handler: function(info, next) {
+    var limit = 99999
+    var skip = 0
+    var pinyin = info.text.replace(/拼音/, "").replace(/-\d+/, "").replace(' ', "")
+    var reg = eval('/'+pinyin.toLowerCase()+'/')
+    var num = info.text.split('-')[1]
+    if(num !=undefined && num !=''){
+      limit = 50
+      skip = (num-1)*50
+    }
+
+    findInformation({'xm':reg}, function(err, list){
+       next(null, arrToStr(list))
+    }, limit, skip)
+
+  }
+})
+
 webot.set('姓名', {
   pattern: /^姓名/i,
   handler: function(info, next) {
-    var name = info.text.replace(/姓名/, "").replace(' ', "")
-    var reg = eval(name)
+    var limit = 99999
+    var skip = 0
+    var name = info.text.replace(/姓名/, "").replace(/-\d+/, "").replace(' ', "")
+    var reg = eval('/'+name+'/')
+    var num = info.text.split('-')[1]
+    if(num !=undefined && num !=''){
+      limit = 50
+      skip = (num-1)*50
+    }
+
     findInformation({姓名:reg}, function(err, list){
        next(null, arrToStr(list))
-    })
+    }, limit, skip)
+
   }
 })
 

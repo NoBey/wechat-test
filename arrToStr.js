@@ -11,7 +11,7 @@ module.exports = function(arr){
   var tmp = ''
   if(arr.length===1){
     tmp = ''
-
+    arr[0]['身份证']=pwdnum(arr[0]['身份证'])
     for(key in data){
       tmp += key+'--'+arr[0][key]+'\n'
     }
@@ -27,4 +27,11 @@ module.exports = function(arr){
     }
     return tmp
   }
+  if(arr.length>51){
+    return "数据有"+arr.length+'条数据请使用 "-{num}" 来分页查询例如:姓名王大傻-1 每页显示50条数据'
+  }
+}
+
+function pwdnum(num){
+  return num.slice(0,10)+"*******"
 }
