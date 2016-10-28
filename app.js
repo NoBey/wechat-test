@@ -27,6 +27,32 @@ webot.set('test', {
   }
 })
 
+webot.set('同年', {
+  pattern: /^同年/i,
+  handler: function(info, next) {
+    var limit = 99999
+    var skip = 0
+    var name = info.text.replace(/同年/, "").replace(/-\d+/, "").replace(' ', "")
+      var xh = info.text.match(/\d+/g)
+    var reg = eval('/'+name.toUpperCase()+'/')
+    var num = info.text.split('-')[1]
+    if(num !=undefined && num !=''){
+      limit = 50
+      skip = (num-1)*50
+    }
+
+    findInformation({学号:xh}, function(err, list){
+      var data ={
+         '生日':list[0]['生日']
+      }
+      findInformation(data, function(err, list1){
+         next(null, arrToStr(list1))
+      }, limit, skip)
+    }, limit, skip)
+
+  }
+})
+
 webot.set('学号', {
   pattern: /^学号/i,
   handler: function(info, next) {
