@@ -8,3 +8,26 @@ charset(request);
   .end((err, res) => {
     console.log(res.text)
   })
+
+
+
+  function duplicates(arr) {
+    var tmp = {}
+    var data = []
+    for (var i = 0; i < arr.length; i++) {
+      if (tmp[arr[i]] != undefined) {
+        if (data.indexOf(arr[i]) == -1) {
+            data.push(arr[i]);
+            continue
+          }
+          continue
+        }
+
+        if (tmp[arr[i]] == undefined) {
+          tmp[arr[i]] = 0;
+          continue
+        }
+      }
+
+      return data
+    }

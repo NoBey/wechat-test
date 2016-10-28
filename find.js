@@ -15,7 +15,14 @@ db.on('error',console.error.bind(console,'连接错误:'));
    籍贯: String,
    身份: String,
    班级: String,
-   高中: String
+   高中: String,
+   xm: String,  // 姓名拼音
+   acronym: String, // 缩写
+   address:String,
+   生日:String,
+   农历:String,
+   属相:String,
+   星座:String,
  });
  var StudentInformationModel = db.model('StudentInformation', StudentInformationSchema);
 

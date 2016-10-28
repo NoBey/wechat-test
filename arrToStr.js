@@ -7,7 +7,11 @@ module.exports = function(arr){
      籍贯: 'String',
      身份: 'String',
      班级: 'String',
-     高中: 'String'}
+     高中: 'String',
+     生日:'String',
+     农历:'String',
+     属相:'String',
+     星座:'String',}
   var tmp = ''
   if(arr.length===1){
     tmp = ''
@@ -23,7 +27,7 @@ module.exports = function(arr){
   if(arr.length>51){
     return "数据有"+arr.length+'条数据请使用 "-{num}" 来分页查询例如:姓名王大傻-1 每页显示50条数据'
   }
-  
+
   if(arr.length>1){
     tmp = ''
     for(var i=0; i<arr.length; i++){
