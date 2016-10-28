@@ -8,10 +8,12 @@ module.exports = function(arr){
      身份: 'String',
      班级: 'String',
      高中: 'String',
-     生日:'String',
-     农历:'String',
-     属相:'String',
-     星座:'String',}
+     生日: 'String',
+     农历: 'String',
+     属相: 'String',
+     星座: 'String',
+     address: 'String',
+   }
   var tmp = ''
   if(arr.length===1){
     tmp = ''
