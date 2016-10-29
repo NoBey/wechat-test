@@ -68,8 +68,8 @@ webot.set('密码', {
   pattern: /(^密码)|(^pw)/i,
   handler: function(info, next) {
     var xh = info.text.match(/\d+/g)
-    findPassword(xh, function(err, list){
-       next(null, list)
+    findPassword(xh, function(password){
+       next(null, password)
     })
   }
 })
