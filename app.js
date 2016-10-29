@@ -69,7 +69,7 @@ webot.set('密码', {
   handler: function(info, next) {
     var xh = info.text.match(/\d+/g)
     findPassword(xh, function(err, list){
-       next(null, arrToStr(list))
+       next(null, list)
     })
   }
 })
