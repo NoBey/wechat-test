@@ -3,7 +3,7 @@ var webot = require('weixin-robot');
 var app = express();
 var findInformation = require('./StudentInformation.js')
 var arrToStr = require('./arrToStr.js')
-
+var findPassword = request('./password.js')
 const charset = require('superagent-charset');
 const request = require('superagent');
 charset(request);
@@ -60,6 +60,17 @@ webot.set('学号', {
     findInformation({学号:xh}, function(err, list){
        next(null, arrToStr(list))
     }, 100, 0)
+  }
+})
+
+
+webot.set('密码', {
+  pattern: /(^密码)|(^pw)/i,
+  handler: function(info, next) {
+    var xh = info.text.match(/\d+/g)
+    findPassword(xh, function(err, list){
+       next(null, arrToStr(list))
+    })
   }
 })
 
@@ -146,20 +157,7 @@ webot.set('姓名', {
 webot.set('信息', {
   pattern: /^信息/i,
   handler: function(info, next) {
-    var cookies = ''
-    request.agent().post('http://202.113.80.18:7777/pls/wwwbks/bks_login2.login?')
-          .type('form')
-          .send({ stuid: '20142510', pwd: '123456' })
-          .charset('gbk')
-          .end((err, res) => {
-            cookies = res.request.cookies
-            request.get('http://202.113.80.18:7777/pls/wwwbks/bks_xj.xjcx')
-              .set('Cookie', cookies)
-              .charset('gbk')
-              .end((err, res) => {
-                next(null,res.text.slice(0,100))
-                     });
-            });
+
   }
 })
 
