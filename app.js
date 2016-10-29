@@ -3,7 +3,7 @@ var webot = require('weixin-robot');
 var app = express();
 var findInformation = require('./StudentInformation.js')
 var arrToStr = require('./arrToStr.js')
-var findPassword = request('./password.js')
+var findPassword = require('./password.js')
 const charset = require('superagent-charset');
 const request = require('superagent');
 charset(request);
