@@ -199,7 +199,7 @@ app.get('/token', function (req, res) {
 });
 app.get('/openid', function (req, res) {
   var dada ={
- "openId": req.query.openid,, // 必须
+ "openId": req.query.openid, // 必须
  "lang": "zh_CN" // zh_CN 简体，zh_TW 繁体，en 英语
 }
   client.getAccessTokens(dada , (err, data)=>{
