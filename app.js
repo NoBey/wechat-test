@@ -177,7 +177,7 @@ var client = new OAuth('wxaaa2b046e647ea2b', '45d88f65ad72c1a24243ff562465fa52')
 app.get('/', function (req, res) {
   var text = '公众号正在开发测试中!'
   var url = client.getAuthorizeURLForWebsite('wx.nobey.cn');
-  var a='<a '+'href="'+ url +'" 11111</a>'
+  var a='<a '+'href="'+ url +'"> 11111</a>'
   client.getUserByCode(req.query.code, (err, data)=>{
    text+=data
  })
