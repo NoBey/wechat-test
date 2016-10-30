@@ -178,8 +178,8 @@ app.get('/', function (req, res) {
   var text = '公众号正在开发测试中!'
   var url = client.getAuthorizeURLForWebsite('wx.nobey.cn');
   var a='<a '+'href="'+ url +'" 11111</a>'
- client.getUserByCode(req.query.code, (err, data)=>{
-   text+=data['nickname']
+  client.getUserByCode(req.query.code, (err, data)=>{
+   text+=data
  })
 
   res.send(text +a);
