@@ -176,21 +176,38 @@ webot.watch(app, { token: 'weixin', path: '/wechat' });
 var client = new OAuth('wxaaa2b046e647ea2b', '45d88f65ad72c1a24243ff562465fa52');
 app.get('/', function (req, res) {
   var text = '公众号正在开发测试中!'
-  var url = client.getAuthorizeURL('http://wx.nobey.cn/ok','ok','snsapi_base');
+  var url = client.getAuthorizeURLForWebsite('http://wx.nobey.cn/code','ok','snsapi_base');
   var a='<a '+'href="'+ url +'"> 11111</a>'
-
-  res.send(text +a);
+  var url1 = client.getAuthorizeURLForWebsite('http://wx.nobey.cn/token','ok','snsapi_base');
+  var a1='<a '+'href="'+ url +'"> 2222</a>'
+  res.send(text +a+a1);
  //  var url = client.getAuthorizeURL('http://' + domain + '/weixin/callback','','snsapi_userinfo');
   //res.redirect(url)
 });
 
- app.get('/ok', function (req, res) {
+ app.get('/code', function (req, res) {
 
    client.getUserByCode(req.query.code, (err, data)=>{
     res.json(data)
   })
 });
+app.get('/token', function (req, res) {
 
+  client.getAccessTokens(req.query.code, (err, data)=>{
+   res.json(data)
+ })
+});
+app.get('/openid', function (req, res) {
+  var dada ={
+ "openId": req.query.openid,, // 必须
+ "lang": "zh_CN" // zh_CN 简体，zh_TW 繁体，en 英语
+}
+  client.getAccessTokens(dada , (err, data)=>{
+   res.json(data)
+ })
+
+
+});
 // 启动 Web 服务
 // 微信后台只允许 80 端口
 var server = app.listen(12345, function () {
