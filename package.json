@@ -23,6 +23,7 @@
     "superagent": "^2.3.0",
     "superagent-charset": "^1.1.1",
     "wechat": "^2.0.3",
+    "wechat-api": "^1.31.0",
     "wechat-oauth": "^1.1.1",
     "weixin-robot": "^0.5.10"
   }

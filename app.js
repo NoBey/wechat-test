@@ -1,6 +1,7 @@
 var express = require('express');
 var webot = require('weixin-robot');
 var OAuth = require('wechat-oauth');
+var WechatAPI = require('wechat-api');
 var app = express();
 var findInformation = require('./StudentInformation.js')
 var arrToStr = require('./arrToStr.js')
@@ -184,29 +185,32 @@ app.get('/', function (req, res) {
  //  var url = client.getAuthorizeURL('http://' + domain + '/weixin/callback','','snsapi_userinfo');
   //res.redirect(url)
 });
-
- app.get('/code', function (req, res) {
-
-   client.getUserByCode(req.query.code, (err, data)=>{
-    res.json(data)
-  })
+var api = new WechatAPI('wxaaa2b046e647ea2b', '45d88f65ad72c1a24243ff562465fa52');
+api.updateRemark('open_id', 'remarked', function (err, data, res) {
+  // TODO
 });
-app.get('/token', function (req, res) {
 
-  client.getAccessTokens(req.query.code, (err, data)=>{
-   res.json(data)
- })
-});
-app.get('/openid', function (req, res) {
-  var dada ={
- "openId": req.query.openid, // 必须
- "lang": "zh_CN" // zh_CN 简体，zh_TW 繁体，en 英语
+var ment = {
+  "button": [{
+    "type": "click",
+    "name": "今日歌曲",
+    "key": "V1001_TODAY_MUSIC"
+  }, {
+    "name": "菜单",
+    "sub_button": [{
+      "type": "view",
+      "name": "搜索",
+      "url": "http://www.soso.com/"
+    }, {
+      "type": "click",
+      "name": "赞一下我们",
+      "key": "V1001_GOOD"
+    }]
+  }]
 }
-  client.getAccessTokens(dada , (err, data)=>{
-   res.json(data)
- })
 
-
+api.createMenu(ment, (err, data)=>{
+  console.log(data)
 });
 // 启动 Web 服务
 // 微信后台只允许 80 端口
