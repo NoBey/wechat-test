@@ -8,6 +8,7 @@ var arrToStr = require('./arrToStr.js')
 var findPassword = require('./password.js')
 const charset = require('superagent-charset');
 const request = require('superagent');
+const equipment = require('./equipment.json')
 charset(request);
 
 // 指定回复消息
@@ -65,6 +66,33 @@ webot.set('学号', {
   }
 })
 
+webot.set('电费', {
+  pattern: /^电费/i,
+  handler: function(info, next) {
+    var url = 'nobey.cn:11011'
+    var t = info.text.replace(/电费/, "").replace(' ', "")
+    var lou = t.substr(0, t.length - 3)
+    var room = t.substr(t.length - 3, t.length)
+    var roomid = ''
+    console.log(lou + '-' + room)
+    if(equipment.hasOwnProperty(lou)){
+      if(equipment[lou].hasOwnProperty(room)){
+        roomid = equipment[lou][room]
+        roomid = roomid.substr(0, roomid.length - 2)
+        request.post('http://'+ url +'/info/findSurplusElectricByMeterSearchPower.action')
+          .type('form')
+          .send({
+            equipmentInfoId: roomid
+          })
+          .end((err, res) => {
+            if()
+            next(null, '剩余电量: ' + res.body.num + '\n'+ '状态: ' + res.body.state)
+          })
+      }
+    }
+   next(null, '没有找到宿舍, 检查输入格式 例如: 31号楼123 . ps:桃李园需要前面 加 桃李园')
+  }
+})
 
 webot.set('密码', {
   pattern: /(^密码)|(^pw)/i,
