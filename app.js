@@ -78,7 +78,7 @@ webot.set('电费', {
     console.log(lou + '-' + room)
     if(equipmentlist.hasOwnProperty(lou)){
       if(equipmentlist[lou].hasOwnProperty(room)){
-        roomid = equipmentlist[lou][room]
+        roomid = equipmentlist[lou][room].id
         roomlength = roomid.length
         if(roomlength == 0) return 'null'
         roomid = roomid.substr(0, roomlength - 2)
