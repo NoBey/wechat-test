@@ -69,7 +69,7 @@ webot.set('学号', {
 webot.set('电费', {
   pattern: /^电费/i,
   handler: function(info, next) {
-    var url = 'nobey.cn:11011'
+    var url = '127.0.0.1:11011'
     var t = info.text.replace(/电费/, "").replace(' ', "")
     var lou = t.substr(0, t.length - 3)
     var room = t.substr(t.length - 3, t.length)
@@ -85,7 +85,7 @@ webot.set('电费', {
             equipmentInfoId: roomid
           })
           .end((err, res) => {
-            
+
             next(null, '剩余电量: ' + res.body.num + '\n'+ '状态: ' + res.body.state)
           })
       }
