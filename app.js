@@ -85,7 +85,7 @@ webot.set('电费', {
             equipmentInfoId: roomid
           })
           .end((err, res) => {
-            if()
+            
             next(null, '剩余电量: ' + res.body.num + '\n'+ '状态: ' + res.body.state)
           })
       }
