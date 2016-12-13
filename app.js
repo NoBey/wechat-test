@@ -92,8 +92,9 @@ webot.set('电费', {
             next(null, '剩余电量: ' + res.body.num + '\n'+ '状态: ' + res.body.state)
           })
       }
+    }else{
+      next(null, '没有找到宿舍, 检查输入格式 例如: 31号楼123 . ps:桃李园需要前面 加 桃李园')
     }
-   next(null, '没有找到宿舍, 检查输入格式 例如: 31号楼123 . ps:桃李园需要前面 加 桃李园')
   }
 })
 
