@@ -8,7 +8,7 @@ var arrToStr = require('./arrToStr.js')
 var findPassword = require('./password.js')
 const charset = require('superagent-charset');
 const request = require('superagent');
-const equipment = require('./equipment.json')
+
 charset(request);
 
 // 指定回复消息
@@ -69,16 +69,19 @@ webot.set('学号', {
 webot.set('电费', {
   pattern: /^电费/i,
   handler: function(info, next) {
+    const equipmentlist = require('./equipment.json')
     var url = '127.0.0.1:11011'
     var t = info.text.replace(/电费/, "").replace(' ', "")
     var lou = t.substr(0, t.length - 3)
     var room = t.substr(t.length - 3, t.length)
     var roomid = ''
     console.log(lou + '-' + room)
-    if(equipment.hasOwnProperty(lou)){
-      if(equipment[lou].hasOwnProperty(room)){
-        roomid = equipment[lou][room]
-        roomid = roomid.substr(0, roomid.length - 2)
+    if(equipmentlist.hasOwnProperty(lou)){
+      if(equipmentlist[lou].hasOwnProperty(room)){
+        roomid = equipmentlist[lou][room]
+        roomlength = roomid.length
+        if(roomlength == 0) return 'null'
+        roomid = roomid.substr(0, roomlength - 2)
         request.post('http://'+ url +'/info/findSurplusElectricByMeterSearchPower.action')
           .type('form')
           .send({
