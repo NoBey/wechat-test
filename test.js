@@ -21,8 +21,8 @@ router.get('/',async (ctx)=>{
 })
 
 router.get('/code', async(ctx) => {
-  console.log(ctx.request.qurey)
-  client.getAccessToken(ctx.request.qurey.code, function(err, result) {
+  console.log(ctx.qurey)
+  client.getAccessToken(ctx.qurey.code, function(err, result) {
     var accessToken = result.data.access_token;
     var openid = result.data.openid;
     client.getUser(openid, function(err, result) {
