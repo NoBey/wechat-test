@@ -3,7 +3,7 @@ const app = new koa()
 
 var OAuth = require('wechat-oauth');
 var client = new OAuth('wxaaa2b046e647ea2b', '45d88f65ad72c1a24243ff562465fa52');
-const ss = client.getAuthorizeURL('http://wx.nobey.cn/code', 'wxoauth')
+const ss = client.getAuthorizeURL('http://wx.nobey.cn/code', 'wxoauth', 'snsapi_userinfo')
 console.log(client.getAuthorizeURLForWebsite('http://wx.nobey.cn/code'))
 console.log(ss)
 
