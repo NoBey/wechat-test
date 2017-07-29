@@ -15,18 +15,17 @@ app
   .use(router.allowedMethods());
 
 router.get('/',async (ctx)=>{
-  console.log(ctx.request)
-
   ctx.body = '<a href='+ ss +'>登陆</a>'
 })
 
 router.get('/code', async(ctx) => {
-  console.log(ctx.query)
   client.getAccessToken(ctx.query.code, function(err, result) {
+    console.log(result)
     var accessToken = result.data.access_token;
     var openid = result.data.openid;
-    client.getUser(openid, function(err, result) {
-      ctx.body = result;
+    client.getUser(openid, function(err, dd) {
+      console.log(dd)
+      ctx.body = dd;
     });
   });
 })
