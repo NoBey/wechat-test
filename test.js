@@ -1,33 +1,33 @@
-var pa = require('./pa.js')
-const charset = require('superagent-charset');
-const request = require('superagent');
-charset(request);
+const koa = require('koa')
+const app = new koa()
 
-  request.get('http://202.113.80.18:7777/pls/wwwbks/bks_login2.login')
-  .charset('gbk')
-  .end((err, res) => {
-    console.log(res.text)
-  })
+var OAuth = require('wechat-oauth');
+var client = new OAuth('wxaaa2b046e647ea2b', '45d88f65ad72c1a24243ff562465fa52');
+const ss = client.getAuthorizeURL('http://wx.noeby.cn/', 'wxoauth', 'snsapi_userinfo')
+console.log(ss)
 
 
+var router = require('koa-router')();
 
-  function duplicates(arr) {
-    var tmp = {}
-    var data = []
-    for (var i = 0; i < arr.length; i++) {
-      if (tmp[arr[i]] != undefined) {
-        if (data.indexOf(arr[i]) == -1) {
-            data.push(arr[i]);
-            continue
-          }
-          continue
-        }
+app
+  .use(router.routes())
+  .use(router.allowedMethods());
 
-        if (tmp[arr[i]] == undefined) {
-          tmp[arr[i]] = 0;
-          continue
-        }
-      }
+router.get('/',async (ctx)=>{
+  console.log(ctx.request)
 
-      return data
-    }
+  ctx.body = '<a href='+ ss +'>登陆</a>'
+})
+
+router.get('/code', async(ctx) => {
+  client.getAccessToken(ctx.request.qurey.code, function(err, result) {
+    var accessToken = result.data.access_token;
+    var openid = result.data.openid;
+    client.getUser(openid, function(err, result) {
+      ctx.body = result;
+    });
+  });
+})
+
+
+app.listen(80)
