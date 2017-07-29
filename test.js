@@ -21,6 +21,7 @@ router.get('/',async (ctx)=>{
 })
 
 router.get('/code', async(ctx) => {
+  console.log(ctx.request.qurey)
   client.getAccessToken(ctx.request.qurey.code, function(err, result) {
     var accessToken = result.data.access_token;
     var openid = result.data.openid;
