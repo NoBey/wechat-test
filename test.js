@@ -3,7 +3,8 @@ const app = new koa()
 
 var OAuth = require('wechat-oauth');
 var client = new OAuth('wxaaa2b046e647ea2b', '45d88f65ad72c1a24243ff562465fa52');
-const ss = client.getAuthorizeURL('http://wx.noeby.cn/', 'wxoauth', 'snsapi_userinfo')
+const ss = client.getAuthorizeURL('http://wx.nobey.cn/code', 'wxoauth')
+console.log(client.getAuthorizeURLForWebsite('http://wx.nobey.cn/code'))
 console.log(ss)
 
 
@@ -30,4 +31,7 @@ router.get('/code', async(ctx) => {
 })
 
 
-app.listen(80)
+// https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxaaa2b046e647ea2b&redirect_uri=http://wx.nobey.cn&response_type=code&scope=snsapi_base&state=123#wechat_redirect
+// https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxaaa2b046e647ea2b&redirect_uri=http://wx.noeby.cn&response_type=code&scope=snsapi_base&state=123#wechat_redirect
+
+// app.listen(80)
