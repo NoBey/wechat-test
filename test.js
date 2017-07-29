@@ -34,4 +34,4 @@ router.get('/code', async(ctx) => {
 // https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxaaa2b046e647ea2b&redirect_uri=http://wx.nobey.cn&response_type=code&scope=snsapi_base&state=123#wechat_redirect
 // https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxaaa2b046e647ea2b&redirect_uri=http://wx.noeby.cn&response_type=code&scope=snsapi_base&state=123#wechat_redirect
 
-// app.listen(80)
+app.listen(80)
